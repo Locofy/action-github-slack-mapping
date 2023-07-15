@@ -106,7 +106,7 @@ export async function run() {
   const mappingUrl = core.getInput('mapping_url');
   const slackStore = await readMappingInfo(mappingUrl);
   const slackUserId = findSlackUserId(slackStore);
-  core.setOutput('slack_username', slackUserId);
+  core.exportVariable('slack_username', slackUserId);
 }
 
 try {

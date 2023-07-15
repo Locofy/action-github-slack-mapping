@@ -38,7 +38,10 @@ describe('run', () => {
       },
     };
     await run();
-    expect(core.setOutput).toHaveBeenCalledWith('slack_username', 'kien-slack');
+    expect(core.exportVariable).toHaveBeenCalledWith(
+      'slack_username',
+      'kien-slack',
+    );
   });
 
   it('should find name from author username', async () => {
@@ -52,7 +55,10 @@ describe('run', () => {
       },
     };
     await run();
-    expect(core.setOutput).toHaveBeenCalledWith('slack_username', 'kien-slack');
+    expect(core.exportVariable).toHaveBeenCalledWith(
+      'slack_username',
+      'kien-slack',
+    );
   });
 
   it('should find name from author email', async () => {
@@ -66,7 +72,10 @@ describe('run', () => {
       },
     };
     await run();
-    expect(core.setOutput).toHaveBeenCalledWith('slack_username', 'kien-slack');
+    expect(core.exportVariable).toHaveBeenCalledWith(
+      'slack_username',
+      'kien-slack',
+    );
   });
 
   it('should find name from author name', async () => {
@@ -80,6 +89,9 @@ describe('run', () => {
       },
     };
     await run();
-    expect(core.setOutput).toHaveBeenCalledWith('slack_username', 'kien-slack');
+    expect(core.exportVariable).toHaveBeenCalledWith(
+      'slack_username',
+      'kien-slack',
+    );
   });
 });
