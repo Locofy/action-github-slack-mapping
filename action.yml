@@ -1,0 +1,19 @@
+name: action-github-slack-mapping
+description: Mapping github pusher to slack username
+author: Locofy
+inputs:
+  mapping_url:
+    description: |
+      Use this json file as mapping between github pusher and slack username. If this is empty, then we will not use mapping
+    required: false
+    default: ''
+  github_token:
+    description: Use this if you wish to use a different GitHub token than the one provided by the workflow.
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: node16
+  main: dist/index.js
+branding:
+  icon: bell
+  color: blue

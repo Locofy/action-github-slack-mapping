@@ -1,0 +1,56 @@
+{
+  "name": "action-github-slack-mapping",
+  "version": "0.0.1",
+  "description": "Mapping github pusher to slack username",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "pack": "ncc build -m",
+    "test": "jest",
+    "all": "npm run build && npm run format-check && npm run lint && npm run pack && npm test",
+    "release": "npm run build && npm run pack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/locofy/action-github-slack-mapping"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup",
+    "chat",
+    "slack"
+  ],
+  "author": "Locofy",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.0.3",
+    "@slack/webhook": "^6.1.0",
+    "axios": "^1.4.0",
+    "https-proxy-agent": "^5.0.1",
+    "semver": "^7.3.7",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.8",
+    "@types/semver": "^7.3.12",
+    "@typescript-eslint/parser": "^5.33.1",
+    "@vercel/ncc": "^0.34.0",
+    "codecov": "^3.8.3",
+    "eslint": "^8.22.0",
+    "eslint-plugin-github": "^4.3.7",
+    "eslint-plugin-jest": "^26.8.5",
+    "jest": "^28.1.3",
+    "jest-circus": "^28.1.3",
+    "js-yaml": "^4.1.0",
+    "nock": "^13.2.9",
+    "prettier": "^2.7.1",
+    "ts-jest": "^28.0.8",
+    "typescript": "^4.7.4"
+  }
+}

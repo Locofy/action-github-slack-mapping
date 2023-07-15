@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "module": "people",
+  "query": "",
+  "filters": {},
+  "pagination": {
+    "total_count": 27,
+    "page": 1,
+    "per_page": 50,
+    "first": 1,
+    "last": 27
+  },
+  "items": [
+    {
+      "id": "kien-slack",
+      "profile": {
+        "title": "",
+        "real_name": "Kien Nguyen",
+        "real_name_normalized": "Kien Nguyen",
+        "display_name": "Kien Nguyen",
+        "display_name_normalized": "Kien Nguyen",
+        "fields": {
+          "Xf03KUK3BYH2": {
+            "value": "+84982562288 (phone & whatsapp)",
+            "alt": ""
+          }
+        },
+        "first_name": "Kien",
+        "last_name": "Nguyen",
+        "email": "kien@locofy.ai"
+      },
+      "username": "kien"
+    }
+  ],
+  "mapping": [
+    {
+      "email": "kien@locofy.ai",
+      "githubs": ["kien-locofy", "kiennt"]
+    }
+  ]
+}
