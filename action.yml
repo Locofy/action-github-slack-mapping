@@ -11,6 +11,15 @@ inputs:
     description: Use this if you wish to use a different GitHub token than the one provided by the workflow.
     required: false
     default: ${{ github.token }}
+  fallback_email:
+    description: 'Fallback email for user identification'
+    required: false
+  fallback_name:
+    description: 'Fallback name for user identification'
+    required: false
+  fallback_username:
+    description: 'Fallback username for user identification'
+    required: false
 runs:
   using: node16
   main: dist/index.js

@@ -92,28 +92,25 @@ function findSlackUserId(slackStore: SlackStore) {
   let ghAuthorUsername = context.payload?.head_commit?.author?.username;
   let ghAuthorName = context.payload?.head_commit?.author?.name || '';
 
-  // Fallback to environment variables (for workflow_dispatch events)
+  // Fallback to input parameters (for workflow_dispatch events)
   if (!ghEmail) {
-    ghEmail = process.env.FALLBACK_EMAIL;
+    ghEmail = core.getInput('fallback_email') || '';
   }
   if (!ghAuthorName) {
-    ghAuthorName = process.env.FALLBACK_NAME;
+    ghAuthorName = core.getInput('fallback_name') || '';
   }
   if (!ghUsername) {
-    ghUsername = process.env.FALLBACK_USERNAME;
+    ghUsername = core.getInput('fallback_username') || '';
   }
-  // Also use fallback for ghAuthorUsername if needed
   if (!ghAuthorUsername) {
-    ghAuthorUsername = process.env.FALLBACK_USERNAME;
+    ghAuthorUsername = core.getInput('fallback_username') || '';
   }
 
+  core.info(`=== Final Values ===`);
   core.info(`ghAuthorUsername: ${ghAuthorUsername}`);
   core.info(`ghUsername: ${ghUsername}`);
   core.info(`ghEmail: ${ghEmail}`);
   core.info(`ghAuthorName: ${ghAuthorName}`);
-  core.info(
-    `store: ${slackStore.users?.length} - ${slackStore.mapping?.length}`,
-  );
 
   const user =
     findSlackUserByGithubUsername(slackStore, ghUsername) ||
