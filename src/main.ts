@@ -85,18 +85,32 @@ function findSlackUserByGithubUsername(
     }
   }
 }
-
 function findSlackUserId(slackStore: SlackStore) {
-  const ghUsername = context.payload?.pusher?.name;
-  const ghEmail = context.payload?.head_commit?.author?.email;
-  const ghAuthorUsername = context.payload?.head_commit?.author?.username;
-  const ghAutherName = context.payload?.head_commit?.author?.name;
+  // Try payload fields first (available in push events)
+  let ghUsername = context.payload?.pusher?.name;
+  let ghEmail = context.payload?.head_commit?.author?.email;
+  let ghAuthorUsername = context.payload?.head_commit?.author?.username;
+  let ghAuthorName = context.payload?.head_commit?.author?.name || '';
+
+  // Fallback to input parameters (for workflow_dispatch events)
+  if (!ghEmail) {
+    ghEmail = core.getInput('fallback_email') || '';
+  }
+  if (!ghAuthorName) {
+    ghAuthorName = core.getInput('fallback_name') || '';
+  }
+  if (!ghUsername) {
+    ghUsername = core.getInput('fallback_username') || '';
+  }
+  if (!ghAuthorUsername) {
+    ghAuthorUsername = core.getInput('fallback_username') || '';
+  }
 
   const user =
     findSlackUserByGithubUsername(slackStore, ghUsername) ||
     findSlackUserByGithubUsername(slackStore, ghAuthorUsername) ||
     findSlackUserByEmail(slackStore, ghEmail) ||
-    findSlackUserByName(slackStore, ghAutherName);
+    findSlackUserByName(slackStore, ghAuthorName);
   if (user) return user.id;
 
   return ghUsername;
